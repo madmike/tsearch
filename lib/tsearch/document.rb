@@ -96,13 +96,13 @@ module TSearch
       def get_ranked_objects(col_id)
         res = Client.get("collections/#{col_id}/ranked_objects")
 
-        res['object_ids']
+        res && res['object_ids']
       end
 
       def versions(obj_id)
         res = Client.get("versions/#{obj_id}")
 
-        res['object_ids']
+        res && res['object_ids']
       end
     end
   end

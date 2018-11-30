@@ -17,23 +17,39 @@ module TSearch
     end
 
     def self.get(action, params = {})
-      uri = @base_url.merge(action)
-      JSON.parse(RestClient.get(uri.to_s, {params: params}.merge(default_params)))
+      begin
+        uri = @base_url.merge(action)
+        JSON.parse(RestClient.get(uri.to_s, {params: params}.merge(default_params)))
+      rescue Exception => e
+        Rails.logger.warn e.message
+      end
     end
 
     def self.post(action, params = {})
-      uri = @base_url.merge(action)
-      JSON.parse(RestClient.post(uri.to_s, params.to_json, default_params))
+      begin
+        uri = @base_url.merge(action)
+        JSON.parse(RestClient.post(uri.to_s, params.to_json, default_params))
+      rescue Exception => e
+        Rails.logger.warn e.message
+      end
     end
 
     def self.put(action, params = {})
-      uri = @base_url.merge(action)
-      JSON.parse(RestClient.put(uri.to_s, params.to_json, default_params))
+      begin
+        uri = @base_url.merge(action)
+        JSON.parse(RestClient.put(uri.to_s, params.to_json, default_params))
+      rescue Exception => e
+        Rails.logger.warn e.message
+      end
     end
 
     def self.delete(action)
-      uri = @base_url.merge(action)
-      JSON.parse(RestClient.delete(uri.to_s, default_params))
+      begin
+        uri = @base_url.merge(action)
+        JSON.parse(RestClient.delete(uri.to_s, default_params))
+      rescue Exception => e
+        Rails.logger.warn e.message
+      end
     end
 
   private
