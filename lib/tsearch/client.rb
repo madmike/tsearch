@@ -18,8 +18,10 @@ module TSearch
 
     def self.get(action, params = {})
       begin
-        uri = @base_url.merge(action)
-        JSON.parse(RestClient.get(uri.to_s, {params: params}.merge(default_params)))
+        status = Timeout::timeout(5) {
+          uri = @base_url.merge(action)
+          JSON.parse(RestClient.get(uri.to_s, {params: params}.merge(default_params)))
+        }
       rescue Exception => e
         Rails.logger.warn e.message
       end
@@ -27,8 +29,10 @@ module TSearch
 
     def self.post(action, params = {})
       begin
-        uri = @base_url.merge(action)
-        JSON.parse(RestClient.post(uri.to_s, params.to_json, default_params))
+        status = Timeout::timeout(5) {
+          uri = @base_url.merge(action)
+          JSON.parse(RestClient.post(uri.to_s, params.to_json, default_params))
+        }
       rescue Exception => e
         Rails.logger.warn e.message
       end
@@ -36,8 +40,10 @@ module TSearch
 
     def self.put(action, params = {})
       begin
-        uri = @base_url.merge(action)
-        JSON.parse(RestClient.put(uri.to_s, params.to_json, default_params))
+        status = Timeout::timeout(5) {
+          uri = @base_url.merge(action)
+          JSON.parse(RestClient.put(uri.to_s, params.to_json, default_params))
+        }
       rescue Exception => e
         Rails.logger.warn e.message
       end
@@ -45,8 +51,10 @@ module TSearch
 
     def self.delete(action)
       begin
-        uri = @base_url.merge(action)
-        JSON.parse(RestClient.delete(uri.to_s, default_params))
+        status = Timeout::timeout(5) {
+          uri = @base_url.merge(action)
+          JSON.parse(RestClient.delete(uri.to_s, default_params))
+        }
       rescue Exception => e
         Rails.logger.warn e.message
       end
