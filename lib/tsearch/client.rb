@@ -24,7 +24,7 @@ module TSearch
         }
       rescue Exception => e
         Rails.logger.warn e.message
-        Object.new
+        {}
       end
     end
 
@@ -36,7 +36,7 @@ module TSearch
         }
       rescue Exception => e
         Rails.logger.warn e.message
-        Object.new
+        {}
       end
     end
 
@@ -48,7 +48,7 @@ module TSearch
         }
       rescue Exception => e
         Rails.logger.warn e.message
-        Object.new
+        {}
       end
     end
 
@@ -60,6 +60,7 @@ module TSearch
         }
       rescue Exception => e
         Rails.logger.warn e.message
+        {}
       end
     end
 
