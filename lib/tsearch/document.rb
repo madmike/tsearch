@@ -65,16 +65,16 @@ module TSearch
 
       def objects(id, options = {})
         res = Client.get("objects/#{id}", {method: 1})
-        col = res['topics']&.map { |topic| self.new(topic, true) } || []
+        col = res&.dig('topics')&.map { |topic| self.new(topic, true) } || []
 
-        return Collection.new(col), res['object_ids']
+        return Collection.new(col), res&.dig('object_ids') || []
       end
 
       def find_by_text(text)
         res = Client.post('objects/search', text: text, method: 1)
-        col = res.res['topics']&.map { |topic| self.new(topic, true) } || []
+        col = res&.dig('topics')&.map { |topic| self.new(topic, true) } || []
 
-        return Collection.new(col), res['object_ids']
+        return Collection.new(col), res&.dig('object_ids') || []
       end
 
       def add_collection(id)
